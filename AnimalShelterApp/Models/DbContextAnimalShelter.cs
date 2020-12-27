@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AnimalShelterApp.Models.Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,9 +9,20 @@ namespace AnimalShelterApp.Models
 {
     public class DbContextAnimalShelter : DbContext
     {
-        public DbContextAnimalShelter(DbContextOptions<DbContextAnimalShelter> options)
+        public DbContextAnimalShelter(DbContextOptions options) : base(options)
         {
 
         }
+
+        public DbSet<Animal> Animals { get; set; }
+
+        public DbSet<Photo> Photos { get; set; }
+
+        public DbSet<Role> Roles { get; set; }
+
+        public DbSet<Shelter> Shelters { get; set; }
+
+        public DbSet<User> Users { get; set; }
+
     }
 }
