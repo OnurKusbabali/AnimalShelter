@@ -9,7 +9,7 @@ namespace AnimalShelterApp.Models
 {
     public class DbContextAnimalShelter : DbContext
     {
-        public DbContextAnimalShelter(DbContextOptions options) : base(options)
+        public DbContextAnimalShelter(DbContextOptions<DbContextAnimalShelter> options) : base(options)
         {
 
         }

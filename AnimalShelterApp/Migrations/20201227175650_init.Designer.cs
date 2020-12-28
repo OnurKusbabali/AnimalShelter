@@ -197,7 +197,7 @@ namespace AnimalShelterApp.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Shelter");
+                  
                 });
 
             modelBuilder.Entity("AnimalShelterApp.Models.Entities.Photo", b =>
@@ -208,7 +208,7 @@ namespace AnimalShelterApp.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Animal");
+                    
                 });
 
             modelBuilder.Entity("AnimalShelterApp.Models.Entities.User", b =>
@@ -219,12 +219,11 @@ namespace AnimalShelterApp.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Role");
+                    
                 });
 
             modelBuilder.Entity("AnimalShelterApp.Models.Entities.Shelter", b =>
-                {
-                    b.Navigation("Animals");
+                { 
                 });
 #pragma warning restore 612, 618
         }

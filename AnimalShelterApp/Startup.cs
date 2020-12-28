@@ -29,6 +29,7 @@ namespace AnimalShelterApp
             services.AddDbContext<DbContextAnimalShelter>(opt => 
                 opt.UseSqlServer((Configuration.GetConnectionString("DefaultSql"))
             ));
+
             services.AddRazorPages();
             services.ConfigureApplicationCookie(options =>
             {
