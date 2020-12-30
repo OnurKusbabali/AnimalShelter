@@ -147,3 +147,4 @@ C:\Users\javid\OneDrive\Desktop\New folder\AnimalShelter\AnimalShelter\AnimalShe
 C:\Users\javid\OneDrive\Desktop\New folder\AnimalShelter\AnimalShelter\AnimalShelterApp\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Configuration.dll
 C:\Users\javid\OneDrive\Desktop\New folder\AnimalShelter\AnimalShelter\AnimalShelterApp\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Configuration.Abstractions.dll
 C:\Users\javid\OneDrive\Desktop\New folder\AnimalShelter\AnimalShelter\AnimalShelterApp\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Configuration.Binder.dll
+C:\Users\javid\OneDrive\Desktop\New folder\AnimalShelter\AnimalShelter\AnimalShelterApp\obj\Debug\netcoreapp3.1\Razor\Pages\Shelters\Create.cshtml.g.cs
