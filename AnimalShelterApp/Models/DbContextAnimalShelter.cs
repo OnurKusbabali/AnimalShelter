@@ -1,4 +1,5 @@
 ﻿using AnimalShelterApp.Models.Entities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace AnimalShelterApp.Models
 {
-    public class DbContextAnimalShelter : DbContext
+    public class DbContextAnimalShelter : IdentityDbContext
     {
         public DbContextAnimalShelter(DbContextOptions<DbContextAnimalShelter> options) : base(options)
         {
@@ -18,11 +19,11 @@ namespace AnimalShelterApp.Models
 
         public DbSet<Photo> Photos { get; set; }
 
-        public DbSet<Role> Roles { get; set; }
+        //public DbSet<Role> Roles { get; set; }
 
         public DbSet<Shelter> Shelters { get; set; }
 
-        public DbSet<User> Users { get; set; }
+        //public DbSet<User> Users { get; set; }
 
     }
 }

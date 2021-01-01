@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 
 namespace AnimalShelterApp
 {
@@ -25,19 +26,15 @@ namespace AnimalShelterApp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            
+
+            services.AddRazorPages();
             services.AddDbContext<DbContextAnimalShelter>(opt => 
                 opt.UseSqlServer((Configuration.GetConnectionString("DefaultSql"))
             ));
 
-            services.AddRazorPages();
-            services.ConfigureApplicationCookie(options =>
-            {
-                options.Cookie.HttpOnly = false;
-                options.LoginPath = "/Account/Login";
-                options.AccessDeniedPath = "/Identity/Account/AccessDenied";
-
-            });
+           
+            services.AddDefaultIdentity<IdentityUser>()
+                .AddEntityFrameworkStores<DbContextAnimalShelter>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
