@@ -16,25 +16,45 @@ namespace AnimalShelterApp
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
             Configuration = configuration;
+            Env = env;
         }
-
+        public IWebHostEnvironment Env { get; }
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            IMvcBuilder builder = services.AddRazorPages();
 
-            services.AddRazorPages();
+            #if DEBUG
+                        if (Env.IsDevelopment())
+                        {
+                            builder.AddRazorRuntimeCompilation();
+                        }
+            #endif
+
             services.AddDbContext<DbContextAnimalShelter>(opt => 
                 opt.UseSqlServer((Configuration.GetConnectionString("DefaultSql"))
             ));
 
-           
+            services.AddAuthorization(options =>
+            {
+
+                options.AddPolicy("Admin",
+                    authBuilder =>
+                    {
+                        authBuilder.RequireRole("Administrators");
+                    });
+
+            });
+
             services.AddDefaultIdentity<IdentityUser>()
                 .AddEntityFrameworkStores<DbContextAnimalShelter>();
+
+           
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -48,21 +68,22 @@ namespace AnimalShelterApp
             {
                 app.UseExceptionHandler("/Home/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
+                
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
-            app.UseRouting();
             app.UseAuthentication();
+            
+            app.UseRouting();
             app.UseAuthorization();
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapRazorPages();
-                //endpoints.MapControllerRoute(
-                //    name: "default",
-                //    pattern: "{controller=Home}/{action=Index}/{id?}");
+
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }

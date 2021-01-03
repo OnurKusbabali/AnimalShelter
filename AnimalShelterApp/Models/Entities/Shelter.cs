@@ -13,7 +13,7 @@ namespace AnimalShelterApp.Models.Entities
 
         [MaxLength(256)]
         public string Description { get; set; }
-
+        public string ImageUrl { get; set; }
         public ICollection<Animal> Animals { get; set; }
     }
 }

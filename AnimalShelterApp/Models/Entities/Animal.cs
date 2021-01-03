@@ -22,5 +22,7 @@ namespace AnimalShelterApp.Models.Entities
         public Guid SheltedId { get; set; }
 
         public Shelter Shelter { get; set; }
+
+        public ICollection<Photo> Photos { get; set; }
     }
 }
