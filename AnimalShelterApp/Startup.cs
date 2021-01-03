@@ -34,7 +34,8 @@ namespace AnimalShelterApp
                         {
                             builder.AddRazorRuntimeCompilation();
                         }
-            #endif
+            
+        #endif
 
             services.AddDbContext<DbContextAnimalShelter>(opt => 
                 opt.UseSqlServer((Configuration.GetConnectionString("DefaultSql"))
@@ -86,6 +87,7 @@ namespace AnimalShelterApp
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 
             }
+            app.UseStatusCodePagesWithReExecute("/Identity/Account/login");
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseRouting();

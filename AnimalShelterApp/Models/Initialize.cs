@@ -33,16 +33,18 @@ namespace AnimalShelterApp.Models
             }
             var list2 = new List<IdentityUser>()
             {
-                new IdentityUser(){Email="b171210373@sakarya.edu.tr",UserName="b171210373@sakarya.edu.tr",Id=Guid.NewGuid().ToString(),EmailConfirmed=true},
-                new IdentityUser(){Email="Onur",UserName="Onur",Id=Guid.NewGuid().ToString(),EmailConfirmed=true}
+                new IdentityUser(){Email="b171210373@sakarya.edu.tr",UserName="b171210373@sakarya.edu.tr",Id=Guid.NewGuid().ToString(),EmailConfirmed=true,PhoneNumberConfirmed=true},
+                new IdentityUser(){Email="Onur@sakarya.edu.tr",UserName="Onur@sakarya.edu.tr",Id=Guid.NewGuid().ToString(),EmailConfirmed=true,PhoneNumberConfirmed=true}
             };
             if (!userManager.Users.Any())
             {
                 foreach (var item in list2)
                 {
                     await userManager.CreateAsync(item,"123").ConfigureAwait(false);
-                    await userManager.AddToRoleAsync(await userManager.FindByNameAsync("b171210373@sakarya.edu.tr"), "Admin");
+                    
                 }
+                await userManager.AddToRoleAsync(await userManager.FindByNameAsync("b171210373@sakarya.edu.tr"), "Admin");
+                await userManager.AddToRoleAsync(await userManager.FindByNameAsync("Onur@sakarya.edu.tr"), "User");
             }
 
         }
