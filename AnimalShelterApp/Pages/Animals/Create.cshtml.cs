@@ -21,7 +21,7 @@ namespace AnimalShelterApp.Pages.Animals
 
         private readonly UserManager<IdentityUser> _userManager;
         private readonly IWebHostEnvironment _hostingEnvironment;
-        private Shelter Shelter { get; set; }
+       
         private readonly DbContextAnimalShelter _db;
         public CreateModel(UserManager<IdentityUser> userManager, DbContextAnimalShelter db, IWebHostEnvironment env)
         {
@@ -60,11 +60,11 @@ namespace AnimalShelterApp.Pages.Animals
                     var uploads = Path.Combine(_hostingEnvironment.WebRootPath, "uploads");
                     var filePath = Path.Combine(uploads, uniqueFileName);
                     _InputModel.Image.CopyTo(new FileStream(filePath, FileMode.Create));
-                    Shelter.ImageUrl = filePath;
+                   // Animal.Photo = filePath;
                     //to do : Save uniqueFileName  to your db table   
                 }
 
-                _db.Shelters.Add(Shelter);
+                _db.Animals.Add(Animal);
                 _db.SaveChanges();
                 return Redirect("/Shelters/Index");
             }

@@ -1,4 +1,62 @@
 ﻿@page
 @model AnimalShelterApp.Pages.Animals.CreateModel
 @{
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>Animal Create Page</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="index.html">Home</a>
+            </li>
+            <li>
+                <a>Animals</a>
+            </li>
+            <li class="active">
+                <strong>Create</strong>
+            </li>
+        </ol>
+    </div>
+    <div class="col-lg-2">
+
+    </div>
+</div>
+
+
+<div class="row white-bg">
+    <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+
+
+            </div>
+            <div class="ibox-content">
+                <div class="row">
+                    <div class="col-sm-6 b-r">
+                        <h3 class="m-t-none m-b">Create Animal</h3>
+
+                        <form method="post" enctype="multipart/form-data">
+                            @Html.AntiForgeryToken()
+                            <div class="form-group">
+                                <label>Name</label> <input class="form-control" name="Name">
+                            </div>
+                            <div class="form-group">
+                                <label>Description</label> <input class="form-control" name="Description">
+                            </div>
+                            <div class="fallback">
+                                <label>File</label><input class="form-control" type="file" name="Image" multiple />
+                            </div>
+                            <div>
+                                <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit"><strong>Create</strong></button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

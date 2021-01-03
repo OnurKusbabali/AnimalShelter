@@ -441,3 +441,4 @@ C:\Users\javid\OneDrive\Desktop\New folder\AnimalShelter\AnimalShelter\AnimalShe
 C:\Users\javid\OneDrive\Desktop\New folder\AnimalShelter\AnimalShelter\AnimalShelterApp\bin\Debug\netcoreapp3.1\Microsoft.Extensions.DependencyModel.dll
 C:\Users\javid\OneDrive\Desktop\New folder\AnimalShelter\AnimalShelter\AnimalShelterApp\bin\Debug\netcoreapp3.1\System.Text.Json.dll
 C:\Users\javid\OneDrive\Desktop\New folder\AnimalShelter\AnimalShelter\AnimalShelterApp\obj\Debug\netcoreapp3.1\AnimalShelterApp.csprojAssemblyReference.cache
+C:\Users\javid\OneDrive\Desktop\New folder\AnimalShelter\AnimalShelter\AnimalShelterApp\obj\Debug\netcoreapp3.1\Razor\Pages\Animals\Create.cshtml.g.cs

@@ -23,6 +23,6 @@ namespace AnimalShelterApp.Models.Entities
 
         public Shelter Shelter { get; set; }
 
-        public ICollection<Photo> Photos { get; set; }
+        public string ImageUrl { get; set; }
     }
 }
