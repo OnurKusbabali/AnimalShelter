@@ -61,7 +61,7 @@
     <div class="col-lg-12">
         <div class="ibox">
             <div class="ibox-content">
-
+                @Html.AntiForgeryToken()
                 <table class="footable table table-stripped toggle-arrow-tiny" data-page-size="15">
                     <thead>
                         <tr>
@@ -107,9 +107,9 @@
 
                             <td class="text-right">
                                 <div class="btn-group">
-                                    <button href="/Shelters/Detail/@item.Id" class="btn-white btn btn-xs btn-primary">Detail</button>
-                                    <button href="/Shelters/Edit/@item.Id" class="btn-white btn btn-xs btn-warning">Edit</button>
-                                    <button id="@item.Id" class="btn-white btn btn-xs btn-danger deleteShelter">Delete</button>
+                                    <a href="/Shelters/Detail/@item.Id" class="btn-white btn btn-xs btn-primary">Detail</a>
+                                    <a href="/Shelters/Edit/@item.Id" class="btn-white btn btn-xs btn-warning">Edit</a>
+                                    <button data-id="@item.Id" class="btn-white btn btn-xs btn-danger deleteShelter">Delete</button>
                                 </div>
                             </td>
                         </tr>
@@ -150,11 +150,7 @@
     <script src="~/Admin/js/plugins/pace/pace.min.js"></script>
 
     <!-- Mainly scripts -->
-    <script src="js/jquery-3.1.1.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
-    <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-
+  
     <!-- Custom and plugin javascript -->
     <script src="js/inspinia.js"></script>
     <script src="js/plugins/pace/pace.min.js"></script>
@@ -169,6 +165,33 @@
             $('.footable').footable();
 
         });
+
+    </script>
+    <script>
+        $(document).ready(function () {
+            var token = $("[name=__RequestVerificationToken]").val();
+            
+            $('.deleteShelter').on('click', function () {
+                var id = $(this).attr("data-id");
+                console.log(id);
+                
+                $.ajax({
+                    method: 'POST',
+                    url: window.location.href,
+                    data: {
+                        __RequestVerificationToken: token,
+                        id: id
+                    },
+                    success: function () {
+                        $(this).hide();
+                        location.reload();
+                    },
+                    error: function () {
+                        alert("İşlem başarısız");
+                    }
+                })
+            })
+        })
 
     </script>
 

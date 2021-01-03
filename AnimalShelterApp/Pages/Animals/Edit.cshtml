@@ -1,7 +1,8 @@
-﻿@page
-@model AnimalShelterApp.Pages.Animals.CreateModel
+﻿@page "{id}"
+@model AnimalShelterApp.Pages.Animals.EditModel
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
+}
 }
 
 
@@ -41,17 +42,22 @@
 
                         <form method="post" enctype="multipart/form-data">
                             @Html.AntiForgeryToken()
+                            <input type="hidden" readonly value="@Model.Animal.Id"/>
                             <div class="form-group">
-                                <label>Name</label> <input class="form-control" name="Name">
+                                <label>Name</label> <input class="form-control" value="@Model.Animal.Name" name="Name">
                             </div>
                             <div class="form-group">
-                                <label>Description</label> <input class="form-control" name="Description">
+                                <label>Description</label> <input class="form-control" value="@Model.Animal.Description" name="Description">
                             </div>
                             <select class="form-control" name="ShelterId">
                                 <option value="">Seçilmedi</option>
                                 @foreach (var item in Model.Shelters)
                                 {
-                                    <option value="@item.Id">@item.Name</option>
+                                    if (item.Id == Model.Animal.SheltedId)
+                                    {
+                                        <option value="@item.Id" selected>@item.Name</option>
+                                    }
+
                                 }
                             </select>
                             <div class="fallback">

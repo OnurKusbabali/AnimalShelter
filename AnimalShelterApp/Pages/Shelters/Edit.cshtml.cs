@@ -12,30 +12,26 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
-namespace AnimalShelterApp.Pages.Animals
-{
-    [Authorize(Roles = "User,Admin")]
-    public class CreateModel : PageModel
-    {
 
+namespace AnimalShelterApp.Pages.Shelters
+{
+    [Authorize(Roles = "Admin")]
+    public class EditModel : PageModel
+    {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly IWebHostEnvironment _hostingEnvironment;
-        
-        public List<Shelter> Shelters { get; set; }
+        public Shelter Shelter { get; set; }
         private readonly DbContextAnimalShelter _db;
-        public CreateModel(UserManager<IdentityUser> userManager, DbContextAnimalShelter db, IWebHostEnvironment env)
+        public EditModel(UserManager<IdentityUser> userManager, DbContextAnimalShelter db, IWebHostEnvironment env)
         {
             _hostingEnvironment = env;
             _db = db;
             _userManager = userManager;
-
         }
-        public void OnGet()
+        public void OnGet(Guid id)
         {
-            Shelters = _db.Shelters.Include(x=>x.Animals).ToList();
+            Shelter = _db.Shelters.Where(x => x.Id == id).FirstOrDefault();
         }
-
         public class InputModel
         {
             [Required]
@@ -45,39 +41,34 @@ namespace AnimalShelterApp.Pages.Animals
 
             public IFormFile Image { set; get; }
 
-            public Guid ShelterId { get; set; }
+            public Guid Id { get; set; }
         }
-
-        public Animal Animal { get; set; }
-
-      
-        public IActionResult OnPost([FromForm]InputModel _InputModel)
+        public IActionResult OnPost([FromForm] InputModel _InputModel)
         {
             if (_InputModel.Name != null)
             {
-                Animal = new Animal();
-                Animal.Id = Guid.NewGuid();
-                Animal.CreateDate = DateTime.Now;
-                Animal.Description = _InputModel.Description;
-                Animal.Name = _InputModel.Name;
-                Animal.SheltedId = _InputModel.ShelterId;
+                Shelter = new Shelter();
+                Shelter.Id = _InputModel.Id;
+
+                Shelter.Description = _InputModel.Description;
+                Shelter.Name = _InputModel.Name;
+              
                 if (_InputModel.Image != null)
                 {
                     var uniqueFileName = GetUniqueFileName(_InputModel.Image.FileName);
                     var uploads = Path.Combine(_hostingEnvironment.WebRootPath, "uploads");
                     var filePath = Path.Combine(uploads, uniqueFileName);
                     _InputModel.Image.CopyTo(new FileStream(filePath, FileMode.Create));
-                    Animal.ImageUrl = filePath;
+                    Shelter.ImageUrl = filePath;
                     //to do : Save uniqueFileName  to your db table   
                 }
 
-                _db.Animals.Add(Animal);
+                _db.Shelters.Update(Shelter);
                 _db.SaveChanges();
                 return Redirect("/Shelters/Index");
             }
             return Page();
         }
-
         private string GetUniqueFileName(string fileName)
         {
             fileName = Path.GetFileName(fileName);

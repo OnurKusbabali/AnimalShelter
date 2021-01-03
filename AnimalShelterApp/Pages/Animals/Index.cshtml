@@ -1,6 +1,7 @@
 ﻿@page
 @model AnimalShelterApp.Pages.Animals.IndexModel
 @{
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 
@@ -66,6 +67,7 @@
                     <thead>
                         <tr>
                             <th data-toggle="true">ID</th>
+                            <th data-toggle="true">Animal Name</th>
                             <th data-toggle="true">Shelter Name</th>
                             <th data-hide="phone">Description</th>
                             <th data-hide="all">Image</th>
@@ -78,41 +80,44 @@
                     <tbody>
                         @foreach (var item in Model.Animals)
                         {
-                            <tr>
-                                <td>
-                                    @item.Id
-                                </td>
-                                <td>
-                                    @item.Name
-                                </td>
-                                <td>
-                                    @item.Description
-                                </td>
-                                <td>
-                                    <img src="" />
-                                </td>
-                                <td>
-                                    @item.CreateDate
-                                </td>
-                                <td>
-                                    @if (item.Deleted != true)
-                                    {
-                                        <span class="label label-primary">Enable</span>
-                                    }
-                                    else
-                                    {
-                                        <span class="label label-danger">Disabled</span>
-                                    }
-                                </td>
+                        <tr>
+                            <td>
+                                @item.Id
+                            </td>
+                            <td>
+                                @item.Name
+                            </td>
+                            <td>
+                                @item.Shelter.Name
+                            </td>
+                            <td>
+                                @item.Description
+                            </td>
+                            <td>
+                                <img src="" />
+                            </td>
+                            <td>
+                                @item.CreateDate
+                            </td>
+                            <td>
+                                @if (item.Deleted != true)
+                                {
+                                    <span class="label label-primary">Enable</span>
+                                }
+                                else
+                                {
+                                    <span class="label label-danger">Disabled</span>
+                                }
+                            </td>
 
-                                <td class="text-right">
-                                    <div class="btn-group">
-                                        <button href="/Shelters/Detail/@item.Id" class="btn-white btn btn-xs btn-primary">Detail</button>
-                                        <button href="/Shelters/Edit/@item.Id" class="btn-white btn btn-xs btn-warning">Edit</button>
-                                        <button id="@item.Id" class="btn-white btn btn-xs btn-danger deleteShelter">Delete</button>
-                                    </div>
-                                </td>
-                            </tr>
+                            <td class="text-right">
+                                <div class="btn-group">
+                                    <a href="/Animals/Detail/@item.Id" class="btn-white btn btn-xs btn-primary">Detail</a>
+                                    <a href="/Animals/Edit/@item.Id" class="btn-white btn btn-xs btn-warning">Edit</a>
+                                    <a id="@item.Id" class="btn-white btn btn-xs btn-danger deleteShelter">Delete</a>
+                                </div>
+                            </td>
+                        </tr>
                         }
 
                     </tbody>

@@ -21,5 +21,14 @@ namespace AnimalShelterApp.Pages.Shelters
         {
             _shelters = _db.Shelters.ToList();
         }
+
+        public void OnPost(Guid id)
+        {
+            Shelter shelter = _db.Shelters.Where(x => x.Id == id).FirstOrDefault();
+            shelter.Deleted = true;
+            _db.Shelters.Remove(shelter);
+            _db.SaveChanges();
+            _shelters = _db.Shelters.ToList();
+        }
     }
 }

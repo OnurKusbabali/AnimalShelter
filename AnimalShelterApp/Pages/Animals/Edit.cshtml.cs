@@ -15,25 +15,26 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 namespace AnimalShelterApp.Pages.Animals
 {
-    [Authorize(Roles = "User,Admin")]
-    public class CreateModel : PageModel
+    [Authorize(Roles="Admin")] 
+    public class EditModel : PageModel
     {
-
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly IWebHostEnvironment _hostingEnvironment;
-        
         public List<Shelter> Shelters { get; set; }
         private readonly DbContextAnimalShelter _db;
-        public CreateModel(UserManager<IdentityUser> userManager, DbContextAnimalShelter db, IWebHostEnvironment env)
+        private readonly UserManager<IdentityUser> _userManager;
+        private readonly IWebHostEnvironment _hostingEnvironment;
+
+        public EditModel(UserManager<IdentityUser> userManager, DbContextAnimalShelter db, IWebHostEnvironment env)
         {
             _hostingEnvironment = env;
             _db = db;
             _userManager = userManager;
-
         }
-        public void OnGet()
+       
+        public void OnGet(Guid Id)
         {
-            Shelters = _db.Shelters.Include(x=>x.Animals).ToList();
+            Animal = _db.Animals.Include(x=>x.Shelter).Where(x => x.Id == Id).FirstOrDefault();
+
+            Shelters = _db.Shelters.ToList();
         }
 
         public class InputModel
@@ -41,23 +42,20 @@ namespace AnimalShelterApp.Pages.Animals
             [Required]
             public string Name { get; set; }
 
+            public Guid Id { get; set; }
+
             public string Description { get; set; }
 
             public IFormFile Image { set; get; }
 
             public Guid ShelterId { get; set; }
         }
-
         public Animal Animal { get; set; }
-
-      
-        public IActionResult OnPost([FromForm]InputModel _InputModel)
+        public IActionResult OnPost([FromForm] InputModel _InputModel)
         {
             if (_InputModel.Name != null)
             {
                 Animal = new Animal();
-                Animal.Id = Guid.NewGuid();
-                Animal.CreateDate = DateTime.Now;
                 Animal.Description = _InputModel.Description;
                 Animal.Name = _InputModel.Name;
                 Animal.SheltedId = _InputModel.ShelterId;
@@ -71,13 +69,12 @@ namespace AnimalShelterApp.Pages.Animals
                     //to do : Save uniqueFileName  to your db table   
                 }
 
-                _db.Animals.Add(Animal);
+                _db.Animals.Update(Animal);
                 _db.SaveChanges();
-                return Redirect("/Shelters/Index");
+                return Redirect("/Animals/Index");
             }
             return Page();
         }
-
         private string GetUniqueFileName(string fileName)
         {
             fileName = Path.GetFileName(fileName);

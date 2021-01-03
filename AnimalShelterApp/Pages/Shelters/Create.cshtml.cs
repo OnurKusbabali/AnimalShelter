@@ -16,7 +16,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace AnimalShelterApp.Pages.Shelters
 {
-    [Authorize()]
+    [Authorize(Roles ="Admin,User")]
     public class CreateModel : PageModel
     {
         private readonly UserManager<IdentityUser> _userManager;

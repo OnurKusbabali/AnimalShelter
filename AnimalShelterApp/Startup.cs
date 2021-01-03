@@ -48,13 +48,29 @@ namespace AnimalShelterApp
                     {
                         authBuilder.RequireRole("Administrators");
                     });
+                options.AddPolicy("User",
+                   authBuilder =>
+                   {
+                       authBuilder.RequireRole("Administrators");
+                   });
 
             });
 
-            services.AddDefaultIdentity<IdentityUser>()
-                .AddEntityFrameworkStores<DbContextAnimalShelter>();
+            services.AddDefaultIdentity<IdentityUser>().AddRoles<IdentityRole>()
+                .AddEntityFrameworkStores<DbContextAnimalShelter>()
+                .AddDefaultTokenProviders();
 
-           
+            services.Configure<IdentityOptions>(options =>
+            {
+                // Default Password settings.
+                options.Password.RequireDigit = false;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequiredLength = 0;
+                options.Password.RequiredUniqueChars = 0;
+            });
+            services.AddRazorPages();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -72,18 +88,14 @@ namespace AnimalShelterApp
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
+            app.UseRouting();
             app.UseAuthentication();
             
-            app.UseRouting();
             app.UseAuthorization();
+           
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapRazorPages();
-
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }

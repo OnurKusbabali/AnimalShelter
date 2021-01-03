@@ -6,7 +6,7 @@ using AnimalShelterApp.Models;
 using AnimalShelterApp.Models.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-
+using Microsoft.EntityFrameworkCore;
 namespace AnimalShelterApp.Pages.Animals
 {
     public class IndexModel : PageModel
@@ -20,7 +20,7 @@ namespace AnimalShelterApp.Pages.Animals
         }
         public void OnGet()
         {
-            Animals = _db.Animals.ToList();
+            Animals = _db.Animals.Include(x=>x.Shelter).ToList();
         }
     }
 }

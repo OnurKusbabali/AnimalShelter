@@ -1,23 +1,21 @@
-﻿@page
-@model AnimalShelterApp.Pages.Animals.CreateModel
+﻿@page  "{id}"
+@model AnimalShelterApp.Pages.Shelters.EditModel
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
-
 <div class="row wrapper border-bottom white-bg page-heading">
     <div class="col-lg-10">
-        <h2>Animal Create Page</h2>
+        <h2>Shelter Create Page</h2>
         <ol class="breadcrumb">
             <li>
                 <a href="index.html">Home</a>
             </li>
             <li>
-                <a>Animals</a>
+                <a>Shelters</a>
             </li>
             <li class="active">
-                <strong>Create</strong>
+                <strong>Edit</strong>
             </li>
         </ol>
     </div>
@@ -33,33 +31,26 @@
             <div class="ibox-title">
 
 
+                
             </div>
             <div class="ibox-content">
                 <div class="row">
                     <div class="col-sm-6 b-r">
-                        <h3 class="m-t-none m-b">Create Animal</h3>
+                        <h3 class="m-t-none m-b">Create Shelter</h3>
 
                         <form method="post" enctype="multipart/form-data">
                             @Html.AntiForgeryToken()
                             <div class="form-group">
-                                <label>Name</label> <input class="form-control" name="Name">
+                                <label>Name</label> <input class="form-control" value="@Model.Shelter.Name" name="Name">
                             </div>
                             <div class="form-group">
-                                <label>Description</label> <input class="form-control" name="Description">
+                                <label>Description</label> <input class="form-control" value="@Model.Shelter.Description" name="Description">
                             </div>
-                            <select class="form-control" name="ShelterId">
-                                <option value="">Seçilmedi</option>
-                                @foreach (var item in Model.Shelters)
-                                {
-                                    <option value="@item.Id">@item.Name</option>
-                                }
-                            </select>
                             <div class="fallback">
                                 <label>File</label><input class="form-control" type="file" name="Image" multiple />
                             </div>
-
                             <div>
-                                <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit"><strong>Create</strong></button>
+                                <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit"><strong>Edit</strong></button>
                             </div>
                         </form>
                     </div>
